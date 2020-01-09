@@ -1,0 +1,57 @@
+
+.device-state{
+.top {
+	height: 60px;
+	ul {
+		li {
+			cursor: pointer;
+			float: left;
+			width: 79px;
+			height: 60px;
+			background: rgba(255, 255, 255, 1);
+			border-radius: 4px;
+			color: rgba(153, 158, 161, 1);
+			line-height: 60px;
+			font-size: 18px;
+			text-align: center;
+			margin-right: 12px;
+			&:nth-child(4) {
+				margin-right: 0;
+			}
+			&.activeLi {
+				color: rgba(255, 255, 255, 1);
+				background: rgba(44, 154, 230, 1);
+				font-weight: 600;
+			}
+		}
+	}
+}
+.min {
+	padding: 0 24px;
+	height: 526px;
+	border-radius: 4px;
+	background: rgba(255, 255, 255, 1);
+	margin-top: 24px;
+	.equipment-details{
+		height: 461px;
+		.btn-tb{
+			background: #2c9ae6;
+			color: #ffffff ;
+		}
+		.sliding-btn{
+			border: 1px solid #EFF2F5 ;
+			border-radius: 5px;
+			height: 32px;
+			font-size: 14px;
+			&.btn-active{
+				background: #2c9ae6;
+				 color: #ffffff ;
+			}
+		}
+		.ipt-active{
+			border: none;
+			background-color: transparent;
+			}
+	}
+}
+}

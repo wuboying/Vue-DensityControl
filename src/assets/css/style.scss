@@ -1,0 +1,170 @@
+body,
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+hr,
+p,
+blockquote,
+dl,
+dt,
+dd,
+ul,
+ol,
+li,
+pre,
+form,
+fieldset,
+legend,
+button,
+input,
+textarea,
+th,
+td {
+	margin: 0;
+	padding: 0;
+}
+ul,
+ol {
+	list-style: none;
+}
+a {
+	text-decoration: none;
+}
+body {
+	color: #000;
+	background: #fff;
+	font: 12px/22px Verdana, Arial, sans-serif, 'Times New Roman', 宋体;
+	text-align: center;
+}
+img {
+	vertical-align: top;
+	border: 0;
+	height: auto;
+}
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+	font-size: inherit;
+	font-weight: normal;
+}
+input {
+	outline: 0;
+	outline: none;
+}
+/**滚动条*/
+.scroll_bar::-webkit-scrollbar {
+	width: 4px;
+}
+
+.scroll_bar::-webkit-scrollbar-track {
+	background-color: #cccccc;
+	-webkit-border-radius: 2em;
+	-moz-border-radius: 2em;
+	border-radius: 2em;
+}
+
+.scroll_bar::-webkit-scrollbar-thumb {
+	background-color: #2c9ae3;
+	-webkit-border-radius: 2em;
+	-moz-border-radius: 2em;
+	border-radius: 2em;
+	opacity: 0.5;
+}
+
+*::-webkit-scrollbar {
+	width: 4px;
+	height: 4px;
+}
+
+*::-webkit-scrollbar-track {
+	background-color: #f4f4f4;
+	-webkit-border-radius: 2em;
+	-moz-border-radius: 2em;
+	border-radius: 2em;
+}
+
+*::-webkit-scrollbar-thumb {
+	background-color: #ccc;
+	-webkit-border-radius: 2em;
+	-moz-border-radius: 2em;
+	border-radius: 2em;
+	opacity: 0.5;
+}
+div:after {
+	content: '';
+	display: block;
+	clear: both;
+}
+body {
+	-webkit-user-select: none;
+	-moz-user-select: none;
+	-ms-user-select: none;
+	user-select: none;
+}
+img {
+	vertical-align: top;
+}
+
+img:not([src]) {
+	opacity: 0;
+}
+p {
+	margin: 0 !important;
+}
+ul,
+ol {
+	margin: 0 !important;
+}
+.titleBar {
+	height: 65px;
+	span {
+		display: inline-block;
+		float: left;
+		font-size: 18px;
+		color: rgba(38, 38, 38, 1);
+		line-height: 65px;
+		font-weight: 600;
+	}
+	p {
+		cursor: pointer;
+		float: right;
+		width: 200px;
+		line-height: 65px;
+		text-align: right;
+		i {
+			font-size: 25px;
+			color: #808080;
+		}
+	}
+}
+.tableFormat {
+	height: calc(100% - 65px);
+}
+.over-flow {
+	width: 80%;
+  display: block;
+	overflow: hidden !important;
+	white-space: nowrap !important;
+	text-overflow: ellipsis !important;
+}
+.tinctorial {
+	width: 12px;
+	height: 12px;
+	display: inline-block;
+	border-radius: 50%;
+	&.activeColor1 {
+		background: yellow;
+	}
+	&.activeColor2 {
+		background: red;
+	}
+	&.activeColor3 {
+		background: purple;
+	}
+}
