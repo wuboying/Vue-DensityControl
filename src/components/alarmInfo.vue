@@ -9,7 +9,7 @@
 	<template slot="alarmDesc" slot-scope="text, record"><span  style="display: inline-block;text-overflow: ellipsis;overflow: hidden !important;white-space: nowrap;width:100px;" :title="text">{{text}}</span></template>
 	</a-table>
 	
-	<a-modal width="1000px" class="modelForm"  centered :maskClosable="false" v-model="visible" @cancel="alarmTypedata">
+	<a-modal v-if="visible" width="1000px" class="modelForm"  centered :maskClosable="false" v-model="visible" @cancel="alarmTypedata">
 		<div style="margin-bottom: 20px;">
 			
 		
@@ -211,7 +211,6 @@ export default {
 		},
 		
 		modelData() {
-			
 			this.visible=true
 			//获取更多数据
 			let url = this.$api.alarmInformationWay;
@@ -244,6 +243,7 @@ export default {
 			this.postData.alarmType=''
 			this.postData.alarmState='1'
 			this.pageOptions.current=1
+			this.dataModel=[]
 			this.formData.resetFields(); // model重置
 			}
 	}

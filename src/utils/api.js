@@ -14,6 +14,7 @@ let api = {
 	getPattern:`/baseUrl/api/v1/homepage/block`,//设备状态--获取密控模式
 	setFacility:`/baseUrl/api/MKDevice/editDeviceState`,//设备状态--回车发送修改值
 	ashAllowed:`/baseUrl/api/v1/homepage/incineration`,//设备状态--化验灰分填报
+	sectionValue:`/baseUrl/api/v1/homepage/ashSection`,//设备状态--设定密度上下限
 	//-------------------------------报警信息------------------------------
 	homePageAlarmInfo:`/baseUrl/api/MKAlarm/homePageAlarmInfo`,//报警信息
 	alarmInformationWay:`/baseUrl/api/MKAlarm/getAlarmInfo`,//报警信息--更多
@@ -33,7 +34,12 @@ let api = {
 	moisturizingRight:`/baseUrl/api/v1/homepage/fa-men/45`,//曲线数据--右侧--补水阀
 	shuntRight:`/baseUrl/api/v1/homepage/fa-men/56`,//曲线数据--右侧--分流阀
 	
-	
+	//-------------------------------全局计时器提示------------------------------	
+	getErrorInfo:`/baseUrl/api/v1/homepage/liquid/message`,//错误提示信息
+	errorCallback:`/baseUrl/api/v1/homepage/liquid/alarm/`,//错误提示信息---回调
+	//-------------------------------灰分计时器提示------------------------------
+	getHuifenInfo:`/baseUrl/api/v1/homepage/hui-fen/message`,//错误提示信息
+	huifenCallback:`/baseUrl/api/v1/homepage/hui-fen/alarm/`,//错误提示信息---回调
 	
 }
 export default api

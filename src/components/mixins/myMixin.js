@@ -1,3 +1,4 @@
+// 6条数据计时器获取--
 export const myMixin = {
 		data() {
 			return {

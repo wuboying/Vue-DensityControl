@@ -17,10 +17,11 @@ export default {
 </script>
 
 <style lang="scss">
-@import './assets/css/style.scss';
-@import './assets/css/ant.scss';
+	@import './assets/css/style.scss';
+	@import './assets/css/ant.scss';
 #app{
-	height: 1080px;
+	height: 100%;
+	overflow: hidden;
 }
 </style>
 

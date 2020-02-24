@@ -10,7 +10,7 @@ module.exports = {
     before: app => { },
     proxy: {
       '/baseUrl': {
-        target: 'http://192.168.14.237:40081',//
+        target: 'http://192.168.7.13:40081',//
         ws: true,
         changeOrigin: true,
         pathRewrite: {

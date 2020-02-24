@@ -18,7 +18,7 @@
 							:disabled="identification == 3 ? false : true"
 							:class="[identification != 3 ? 'ipt-active' : '']"
 							type="text"
-							v-decorator="['desc', { initialValue: equipmentData.setDensity, rules: [{ required: true, message: '请输入报警详情' }] }]"
+							v-decorator="['desc', { initialValue: equipmentData.setDensity, rules: [{ required: true, message: '请输入设定密度' }, { validator: validatorCustom }] }]"
 						/>
 						<span>g/cm³</span>
 					</a-form-item>
@@ -33,7 +33,7 @@
 							style="width: 85px; float: left;"
 							type="text"
 							:class="[identification != 2 ? 'ipt-active' : '']"
-							v-decorator="['ddd', { initialValue: equipmentData.spliteFlowDown, rules: [{ required: true, message: '请输入报警详情' }] }]"
+							v-decorator="['ddd', { initialValue: equipmentData.spliteFlowDown, rules: [{ required: true, message: '请输入分流阀开度' }, { validator: openingDegree }] }]"
 						/>
 						<span v-if="identification != 1">%</span>
 					</a-form-item>
@@ -48,7 +48,7 @@
 							@pressEnter="carriageReturn(45, equipmentData.makeUpUp, equipmentData.makeUpDown)"
 							type="text"
 							:class="[identification != 2 ? 'ipt-active' : '']"
-							v-decorator="['www', { initialValue: equipmentData.makeUpDown, rules: [{ required: true, message: '请输入报警详情' }] }]"
+							v-decorator="['www', { initialValue: equipmentData.makeUpDown, rules: [{ required: true, message: '请输入补水阀开度' }, { validator: openingDegree }] }]"
 						/>
 						<span v-if="identification != 1">%</span>
 					</a-form-item>
@@ -132,6 +132,8 @@ export default {
 	name: 'alarmInfo',
 	data() {
 		return {
+			online:'',//上限
+			offline:'',//下限
 			titleUl: TITLE_UL,
 			blickBtn: BTN,
 			identification: '', //当前状态id
@@ -158,18 +160,36 @@ export default {
 		this.getCurrentStatus();
 		this.ifData();
 		this.getPattern();
+		this.getSection()
 	},
 	mounted() {
 		// setInterval(this.getPattern, 1000);
 		setInterval(() => {
 			this.getCurrentStatus();
 			this.getStatusData();
+			this.getSection();
 			if (this.identification == 4) {
 				this.getPattern();
 			}
 		}, 1000);
 	},
 	methods: {
+		
+		getSection() {
+			//获取设定密度区间
+			let url = this.$api.sectionValue;
+			this.$http
+				.get(url)
+				.then(response => {
+				this.online = response.密度上限
+				this.offline = response.密度下限
+				})
+				.catch(error => {});
+		},
+		
+		
+		
+		
 		carriageReturn(ida, befor, after) {
 			//回车
 			// this.form.validateFields((err, values) => {
@@ -216,13 +236,13 @@ export default {
 				.catch(error => {});
 		},
 		setCurrentStatus(id) {
+						this.form.resetFields(); // model重置
 			this.identification = id;
 			let url = this.$api.setCurrentStatus;
 			this.$http
 				.get(url + id)
 				.then(response => {
 					if (response.code == 0) {
-						this.form.resetFields(); // model重置
 						this.ifData();
 					}
 				})
@@ -335,6 +355,7 @@ export default {
 				.catch(error => {});
 		},
 		setPattern(id) {
+			if(this.btnID!=id){
 			//发送密控模式
 			let _this = this;
 			_this.$confirm({
@@ -353,7 +374,10 @@ export default {
 						.get(url + id)
 						.then(response => {
 							if (response.code == 0) {
+								_this.$message.success('修改模式成功');
 								_this.btnID = id;
+							}else {
+								this.$message.error('修改模式失败');
 							}
 						})
 						.catch(error => {});
@@ -361,6 +385,7 @@ export default {
 				onCancel() {},
 				class: 'test'
 			});
+			}
 		},
 		onClickOpen() {
 			//填报显示model
@@ -389,6 +414,28 @@ export default {
 						});
 				}
 			});
+		},
+		validatorCustom(rule, value, callback) {
+			const form = this.form;
+			let mUserId = /^[0-1]{1}([.][0-9]{1,3})?$/;
+			if (value && !value.match(mUserId)) {
+				return callback(new Error('整数最大为1,小数位3'));
+			} else if(value&&Number(value) >Number(this.online)){
+				return callback(new Error(`不能大于生产密度上限`));
+			}else if(value&&Number(value) <Number(this.offline)){
+				return callback(new Error(`不能小于生产密度下限`));
+			}else{
+				callback();
+			}
+		},
+		openingDegree(rule, value, callback) {
+			const form = this.form;
+			let mUserId =/^(?:0|[1-9][0-9]?|100)$/;
+			if (value && !value.match(mUserId)) {
+				return callback(new Error('只能输入0-100整数'));
+			} else{
+				callback();
+			}
 		}
 	}
 };

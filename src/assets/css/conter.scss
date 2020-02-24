@@ -1,35 +1,11 @@
-.home {
-	width: 1920px;
-	height: 1080px;
+.mk-home {
+	width:100%;
+	height: 100%;
+	overflow: auto;
 	background: rgba(239, 242, 245, 1);
-	#header {
-		height: 70px;
-		background: rgba(255, 255, 255, 1);
-		box-sizing: border-box;
-		padding: 0 32px;
-		.pm {
-			float: left;
-			width: 309px;
-			height: 46px;
-			margin-top: 14px;
-		}
-		.logo {
-			float: right;
-			margin-top: 20px;
-			img {
-				width: 40px;
-				height: 26px;
-			}
-			span {
-				font-size: 14px;
-				color: rgba(77, 77, 77, 1);
-				line-height: 26px;
-				margin-left: 8px;
-				font-weight: 600;
-			}
-		}
-	}
 	#content {
+		width: 1930px;
+		overflow: auto;
 		height: 978px;
 		box-sizing: border-box;
 		padding: 27px 32px 24px 32px;
@@ -175,17 +151,6 @@
 				border-radius: 4px;
 				background: rgba(255, 255, 255, 1);
 			}
-		}
-	}
-	#footer {
-		height: 32px;
-		background: rgba(44, 154, 230, 1);
-		p {
-			font-size: 12px;
-			font-weight: 600;
-			color: rgba(255, 255, 255, 1);
-			line-height: 32px;
-			text-align: center;
 		}
 	}
 }

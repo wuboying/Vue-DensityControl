@@ -8,7 +8,7 @@
 			</template>
 		</a-table>
 
-		<a-modal width="1080px" class="modelForm"  centered :maskClosable="false" v-model="visible">
+		<a-modal width="1080px" class="modelForm" v-if='visible' centered :maskClosable="false" v-model="visible" @cancel="modelTypedata">
 			<div style="margin-bottom: 20px;">
 				
 			
@@ -143,7 +143,6 @@ export default {
 			
 			this.formData.validateFields((err, values) => {
 		
-				  console.log(values)
 				  if(values.times&&values.times.length>0){
 				this.postData.startDate=this.$times.filtrateDate(values.times[0]._d)
 				this.postData.endDate=this.$times.filtrateDate(values.times[1]._d)
@@ -187,7 +186,16 @@ export default {
 					this.pageOptions.total=response.result.size||0
 				})
 				.catch(error => {});
-		}
+		},
+		modelTypedata(){
+			this.postData.startDate=''
+			this.postData.endDate=''
+			this.postData.limit=10
+			this.postData.page=1
+			this.pageOptions.current=1
+			this.dataModel=[]
+			this.formData.resetFields(); // model重置
+			}
 	}
 };
 </script>

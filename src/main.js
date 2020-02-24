@@ -8,6 +8,8 @@ import _http from './utils/axios'
 import _api from './utils/api'
 import _times from './assets/js/timeCycle.js'
 import echarts from 'echarts'
+import MkModular from './views/index.js'
+Vue.use(MkModular);
 Vue.config.productionTip = false
 Vue.prototype.$echarts = echarts
 Vue.use(antDesign);

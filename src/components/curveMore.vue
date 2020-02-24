@@ -1,8 +1,8 @@
-<!-- 密度调整 -->
+<!-- 曲线model -->
 
 <template>
 	<div class="alarm-info">
-		<a-modal width="1080px" class="modelForm" centered :maskClosable="false" v-model="visible">
+		<a-modal v-if="visible" width="1080px" class="modelForm" centered :maskClosable="false" v-model="visible" @cancel="modelTypedata">
 			<div style="margin-bottom: 20px;">
 				<a-form class="filter_box" :form="formData" layout="inline">
 					<a-form-item label="时间段查询：" style="float: left;">
@@ -36,9 +36,10 @@ export default {
 
 	data() {
 		return {
+			loading:false,
 			visible: false,
-			two: '',
-			three: '',
+			two: '',//表格第二个title
+			three: '',//表格第三个title
 			columnsModel: [
 				{
 					title: '记录时间',
@@ -63,7 +64,7 @@ export default {
 			dataModel: [],
 			title: '',
 			url: '',
-loading:false,
+
 			formData: this.$form.createForm(this),
 			postData: {
 				startDate: '',
@@ -98,10 +99,10 @@ loading:false,
 			return this.ipa;
 		}
 	},
-	created() {},
+	created() {		console.log(123)},
 	mounted() {},
 	methods: {
-		seek() {
+		seek() {//搜索
 			this.postData.page = 1;
 			this.pageOptions.current = 1;
 
@@ -118,8 +119,8 @@ loading:false,
 			});
 		},
 
-		modelData(id) {
-
+		modelData(id) {//调用model弹出
+			this.formData.resetFields(); // model重置
 			if (id == 1) {
 				this.title = '灰分变化记录';
 				this.url = this.$api.ashEchartsWay;
@@ -147,7 +148,7 @@ loading:false,
 			this.modelList();
 		},
 		modelList() {
-			    this.loading = true;
+			   this.loading = true;
 			//获取更多数据
 			let url = this.url;
 			this.$http
@@ -159,10 +160,16 @@ loading:false,
 
 					this.dataModel = response.result.list;
 					this.pageOptions.total = response.result.size || 0;
-					   this.loading = false;
+					this.loading = false;
+					
 				})
-				.catch(error => {   this.loading = false;});
-		}
+				.catch(error => { this.loading = false; });
+		},
+		
+		modelTypedata(){
+			this.dataModel=[]
+			this.formData.resetFields(); // model重置
+			}
 	}
 };
 </script>
