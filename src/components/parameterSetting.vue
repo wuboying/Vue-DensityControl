@@ -3,7 +3,7 @@
 <template>
 	<div class="parameter-setting">
 		<a-form id="fourFrom" :form="form" layout="horizontal">
-			<a-form-item :required="false" :label-col="{ span: 12 }" :wrapper-col="{ span: 12 }" :label="el.configDesc" v-for="(el, index) in fourData" :key="index">
+			<a-form-item :required="false" :label-col="{ span: 14 }" :wrapper-col="{ span: 10 }" :label="el.configDesc" v-for="(el, index) in fourData" :key="index">
 				<a-input
 					type="text"
 					@pressEnter="carriageReturn(el.configName)"
@@ -11,7 +11,7 @@
 						`${el.configName}`,
 						{
 							initialValue: `${el.configValue}`,
-							rules: [{ required: true, whitespace: true, message: `请输入${getSplit(el.configDesc)}` }, { validator: validatorCustom }]
+							rules: [{ required: true, whitespace: true, message: `请输入` }, { validator: validatorCustom }]
 						}
 					]"
 				/>
@@ -21,7 +21,7 @@
 		<a-modal width="1080px" class="set-form"  okText="保存"  centered :maskClosable="false" v-model="visible" @ok="handleOk">
 			<div slot="title"><span style="font-size: 20px;font-weight: 600;">参数设置</span></div>
 			<div style="width: 100%;height: 545px;overflow: auto;">
-			<a-form id="fourFrom" :form="formData" layout="inline">
+			<a-form id="allFrom" :form="formData" layout="inline">
 				<div  :key="index" v-for="(all,index) in allData">
 					<p class="set-way-title">{{index==0?'控制参数设置':index==1?'计算参数设置':index==2?'时间参数设置':''}}</p>
 					<div class="set-way-div">
@@ -33,7 +33,7 @@
 									`${el.configName}`,
 									{
 										initialValue: `${el.configValue}`,
-										rules: [{ required: true, whitespace: true, message: `请输入${getSplit(el.configDesc)}` }]
+										rules: [{ required: true, whitespace: true, message: `请输入` }]
 									}
 								]"
 							/>
@@ -121,7 +121,7 @@ export default {
 				this.fourData.push(data[i]);
 			}
 		},
-		getSplit(data) {
+		getSplit(data) {//							rules: [{ required: true, whitespace: true, message: `请输入${getSplit(el.configDesc)}` }, { validator: validatorCustom }]
 			//message错误提示信息
 
 			var index = data.indexOf('(');
@@ -227,7 +227,7 @@ export default {
 	.set-way-title{
 		width: 100%;
 		    font-size: 17px;
-		    line-height: 25px;
+		    // line-height: 25px;
 		    margin: 10px 0 !important;
 		    text-indent: 40px;
 		    color: #000;

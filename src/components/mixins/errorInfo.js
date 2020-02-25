@@ -28,8 +28,10 @@ export const errorInfo = {
 					.get(url)
 					.then(response => {
 						console.log(response)
+						
 						if(response!=null&&response!=''){
-			 clearInterval(this.clearTimeSet)
+							console.log(123123123)
+			 // clearInterval(this.clearTimeSet)
 							
 						}
 						

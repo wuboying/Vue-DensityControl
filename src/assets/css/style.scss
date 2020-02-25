@@ -122,20 +122,20 @@ ol {
 	margin: 0 !important;
 }
 .titleBar {
-	height: 65px;
+	height: 40px;
 	span {
 		display: inline-block;
 		float: left;
 		font-size: 18px;
 		color: rgba(38, 38, 38, 1);
-		line-height: 65px;
+		line-height: 40px;
 		font-weight: 600;
 	}
 	p {
 		cursor: pointer;
 		float: right;
 		width: 200px;
-		line-height: 65px;
+		line-height: 40px;
 		text-align: right;
 		i {
 			font-size: 25px;
@@ -143,6 +143,7 @@ ol {
 		}
 	}
 }
+
 .tableFormat {
 	height: calc(100% - 65px);
 }
