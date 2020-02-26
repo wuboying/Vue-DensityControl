@@ -95,11 +95,9 @@ export default {
 		};
 	},
 	computed: {
-		aaa() {
-			return this.ipa;
-		}
+	
 	},
-	created() {		console.log(123)},
+	created() {	},
 	mounted() {},
 	methods: {
 		seek() {//搜索

@@ -35,7 +35,7 @@
 </template>
 
 <script>
-import util from '../utils/util.js';
+	import util from '../utils/util.js';
 const columns = [
 	{
 		title: '建议时间',
@@ -128,14 +128,11 @@ export default {
 	mounted() {
 		var that = this;
 		setInterval(that.densityAdjustment, 1000 * 30);
-		util.$on('gain', () => {
-			that.densityAdjustment();
-		});
+			util.$on('gain', () => {			
+				that.densityAdjustment();
+			});
 	},
 	methods: {
-		qqq() {
-			console.log(1111);
-		},
 		
 		seek(){
 		    this.postData.page = 1
@@ -162,6 +159,7 @@ export default {
 			this.$http
 				.get(url)
 				.then(response => {
+				
 					if (response.code == 0) {
 						for (let i = 0; i < response.result.length; i++) {
 							response.result[i].key = i;

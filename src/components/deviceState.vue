@@ -14,11 +14,11 @@
 					<a-form-item :required="false" :label-col="{ span: 8 }" :wrapper-col="{ span: 12 }" label="设定密度">
 						<a-input
 							style="width: 85px; float: left;"
-							@pressEnter="carriageReturn(12, equipmentData.setDensity, equipmentData.setDensity)"
+							@pressEnter="carriageReturn(12, equipmentData.setDensity, equipmentData.setDensity,'midu')"
 							:disabled="identification == 3 ? false : true"
 							:class="[identification != 3 ? 'ipt-active' : '']"
 							type="text"
-							v-decorator="['desc', { initialValue: equipmentData.setDensity, rules: [{ required: true, message: '请输入设定密度' }, { validator: validatorCustom }] }]"
+							v-decorator="['midu', { initialValue: equipmentData.setDensity, rules: [{ required: true, message: '请输入设定密度' }, { validator: validatorCustom }] }]"
 						/>
 						<span>g/cm³</span>
 					</a-form-item>
@@ -29,11 +29,11 @@
 						<a-input
 							v-if="identification != 1"
 							:disabled="identification == 2 ? false : true"
-							@pressEnter="carriageReturn(56, equipmentData.spliteFlowUp, equipmentData.spliteFlowDown)"
+							@pressEnter="carriageReturn(56, equipmentData.spliteFlowUp, equipmentData.spliteFlowDown,'fenliufa')"
 							style="width: 85px; float: left;"
 							type="text"
 							:class="[identification != 2 ? 'ipt-active' : '']"
-							v-decorator="['ddd', { initialValue: equipmentData.spliteFlowDown, rules: [{ required: true, message: '请输入分流阀开度' }, { validator: openingDegree }] }]"
+							v-decorator="['fenliufa', { initialValue: equipmentData.spliteFlowDown, rules: [{ required: true, message: '请输入分流阀开度' }, { validator: openingDegree }] }]"
 						/>
 						<span v-if="identification != 1">%</span>
 					</a-form-item>
@@ -45,10 +45,10 @@
 							v-if="identification != 1"
 							:disabled="identification == 2 ? false : true"
 							style="width: 85px; float: left;"
-							@pressEnter="carriageReturn(45, equipmentData.makeUpUp, equipmentData.makeUpDown)"
+							@pressEnter="carriageReturn(45, equipmentData.makeUpUp, equipmentData.makeUpDown,'bushuifa')"
 							type="text"
 							:class="[identification != 2 ? 'ipt-active' : '']"
-							v-decorator="['www', { initialValue: equipmentData.makeUpDown, rules: [{ required: true, message: '请输入补水阀开度' }, { validator: openingDegree }] }]"
+							v-decorator="['bushuifa', { initialValue: equipmentData.makeUpDown, rules: [{ required: true, message: '请输入补水阀开度' }, { validator: openingDegree }] }]"
 						/>
 						<span v-if="identification != 1">%</span>
 					</a-form-item>
@@ -190,34 +190,48 @@ export default {
 		
 		
 		
-		carriageReturn(ida, befor, after) {
+		carriageReturn(ida, befor, after,name) {
+			this.form.validateFields((err, values) => {
+				if (err && err[name]) {
+				} else {
+				let url = this.$api.setFacility;
+				this.$http
+					.post(url, {
+						runningMode: this.identification,
+						desc: ida,
+						beforValue: parseFloat(befor),
+						afterValue: parseFloat(after)
+					})
+					.then(response => {
+						if (response.code == 0) {
+							if(ida==12){
+								
+								util.$emit('gain');
+								
+							
+							}
+							
+							
+							this.$message.success('操作成功');
+							return;
+						}
+						this.$message.error('操作失败');
+					})
+					.catch(error => {
+						this.$message.error('操作失败');
+					});
+				}
+			});
+			
+			
+			
 			//回车
 			// this.form.validateFields((err, values) => {
 			// 	console.log(values);
 			// });
-			let url = this.$api.setFacility;
-			this.$http
-				.post(url, {
-					runningMode: this.identification,
-					desc: ida,
-					beforValue: parseFloat(befor),
-					afterValue: parseFloat(after)
-				})
-				.then(response => {
-					if (response.code == 0) {
-						this.$message.success('操作成功');
-						return;
-					}
-					this.$message.error('操作失败');
-				})
-				.catch(error => {
-					this.$message.error('操作失败');
-				});
+	
 		},
 
-		abc() {
-			util.$emit('gain');
-		},
 
 		getCurrentStatus() {
 			//获取当前状态id
@@ -237,12 +251,12 @@ export default {
 		},
 		setCurrentStatus(id) {
 						this.form.resetFields(); // model重置
-			this.identification = id;
 			let url = this.$api.setCurrentStatus;
 			this.$http
 				.get(url + id)
 				.then(response => {
 					if (response.code == 0) {
+			this.identification = id;
 						this.ifData();
 					}
 				})
@@ -421,9 +435,9 @@ export default {
 			if (value && !value.match(mUserId)) {
 				return callback(new Error('整数最大为1,小数位3'));
 			} else if(value&&Number(value) >Number(this.online)){
-				return callback(new Error(`不能大于生产密度上限`));
+				return callback(new Error(`大于生产密度上限`));
 			}else if(value&&Number(value) <Number(this.offline)){
-				return callback(new Error(`不能小于生产密度下限`));
+				return callback(new Error(`小于生产密度下限`));
 			}else{
 				callback();
 			}

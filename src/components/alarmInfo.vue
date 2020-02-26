@@ -59,7 +59,6 @@
 </template>
 
 <script>
-	import util from '../utils/util.js'
 const columns = [
 	{
 		title: '报警时间',
@@ -167,11 +166,10 @@ export default {
 	},
 	mounted() {
 		    setInterval(this.homeAlarmInfo, 5000);
+	
 	},
 	methods:{
-		abc(){
-		util.$emit('gain')	
-		},
+	
 		
 		homeAlarmInfo(){
 			let url = this.$api.homePageAlarmInfo;

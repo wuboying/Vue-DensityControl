@@ -175,8 +175,11 @@ export default {
 			const form = this.form;
 			if (rule.field == 'cleanedCoalAshLower') {
 				//下
-				if (value && value >= form.getFieldValue('cleanedCoalAshUpper')) {
-					callback(new Error('不能大于等于精煤灰分上限'));
+				let mUserId = /^[7-9]\.[0-9]{1,3}$|^[7-9]{1}$|^10{1}$|^10\.[0-9]{1,3}$|^11{1}$|^11\.[0]{1,3}$/;
+				if (value && !value.match(mUserId)) {
+					return callback(new Error('7-11小数位3'));
+				} else if (value && value >= form.getFieldValue('cleanedCoalAshUpper')) {
+					callback(new Error('大于等于上限'));
 					return;
 				} else {
 					callback();
@@ -184,8 +187,11 @@ export default {
 			} else if (rule.field == 'cleanedCoalAshUpper') {
 				//上
 
-				if (value && value <= form.getFieldValue('cleanedCoalAshLower')) {
-					callback(new Error('不能小于等于精煤灰分下限'));
+let mUserId =/^[7-9]\.[0-9]{1,3}$|^[7-9]{1}$|^10{1}$|^10\.[0-9]{1,3}$|^11{1}$|^11\.[0]{1,3}$/;
+ 				if (value && !value.match(mUserId)) {
+ 					return callback(new Error('7-11小数位3'));
+ 				} else if (value && value <= form.getFieldValue('cleanedCoalAshLower')) {
+					callback(new Error('小于等于下限'));
 					return;
 				} else {
 					callback();
@@ -194,7 +200,7 @@ export default {
 				//下
 
 				if (value && value >= form.getFieldValue('upperProductionDensity')) {
-					callback(new Error('不能大于等于生产密度上限'));
+					callback(new Error('大于等于上限'));
 					return;
 				} else {
 					callback();
@@ -202,7 +208,7 @@ export default {
 			} else if (rule.field == 'upperProductionDensity') {
 				//上
 				if (value && value <= form.getFieldValue('lowerProductionDensity')) {
-					callback(new Error('不能小于等于生产密度下限'));
+					callback(new Error('小于等于下限'));
 					return;
 				} else {
 					callback();
