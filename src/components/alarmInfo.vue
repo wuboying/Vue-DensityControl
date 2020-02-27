@@ -189,10 +189,10 @@ export default {
 			let url = this.$api.homePageAlarmInfo;
 			this.$http.get(url)		
 			.then(response => {
+				console.log(response)
 				for(let i=0;i<response.length;i++){
 					response[i].key=i
 				}
-				this.abc()
 				this.data=response
 				})
 				.catch(error => {
