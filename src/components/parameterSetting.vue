@@ -33,7 +33,7 @@
 									`${el.configName}`,
 									{
 										initialValue: `${el.configValue}`,
-										rules: [{ required: true, whitespace: true, message: `请输入` }]
+										rules: [{ required: true, whitespace: true, message: `请输入` }, { validator: validatorList }]
 									}
 								]"
 							/>
@@ -87,6 +87,7 @@ export default {
 		  e.preventDefault()
 		  this.formData.validateFields((err, values) => {
 		    if (!err) {
+				console.log(123)
 		   let attr=[];
 		   
 		   for(let val in values ){
@@ -198,8 +199,10 @@ let mUserId =/^[7-9]\.[0-9]{1,3}$|^[7-9]{1}$|^10{1}$|^10\.[0-9]{1,3}$|^11{1}$|^1
 				}
 			} else if (rule.field == 'lowerProductionDensity') {
 				//下
-
-				if (value && value >= form.getFieldValue('upperProductionDensity')) {
+let mUserId = /^[1-9]{1,2}$|^[1-9]{1,2}[\.]{1}[0-9]{1,2}$/;
+					if (value && !value.match(mUserId)) {
+						return callback(new Error('大于1小数2'));
+					}else if (value && value >= form.getFieldValue('upperProductionDensity')) {
 					callback(new Error('大于等于上限'));
 					return;
 				} else {
@@ -207,13 +210,359 @@ let mUserId =/^[7-9]\.[0-9]{1,3}$|^[7-9]{1}$|^10{1}$|^10\.[0-9]{1,3}$|^11{1}$|^1
 				}
 			} else if (rule.field == 'upperProductionDensity') {
 				//上
-				if (value && value <= form.getFieldValue('lowerProductionDensity')) {
+				let mUserId = /^[1-9]{1,2}$|^[1-9]{1,2}[\.]{1}[0-9]{1,2}$/;
+					if (value && !value.match(mUserId)) {
+						return callback(new Error('大于1小数2'));
+					}else if (value && value <= form.getFieldValue('lowerProductionDensity')) {
 					callback(new Error('小于等于下限'));
 					return;
 				} else {
 					callback();
 				}
 			}
+		},
+		validatorList(rule, value, callback) {//全部数据正则表达式验证
+			const form = this.formData;
+			if(rule.field == 'maximumOpeningOfShuntValve'){//分流阀最大开度//////第一个
+				let mUserId = /^(?:0|[1-9][0-9]?|100)$/;
+					if (value && !value.match(mUserId)) {
+						return callback(new Error('0-100整数'));
+					} else {
+				callback();
+						
+					}
+				
+				
+			}else if(rule.field == 'maximumOpeningOfRefillValve'){//补水阀最大开度
+				let mUserId = /^(?:0|[1-9][0-9]?|100)$/;
+					if (value && !value.match(mUserId)) {
+						return callback(new Error('0-100整数'));
+					} else {
+				callback();
+						
+					}
+			}else if(rule.field == 'minimumValveOpening'){//分流阀最小开度
+				let mUserId = /^(?:0|[1-9][0-9]?|100)$/;
+					if (value && !value.match(mUserId)) {
+						return callback(new Error('0-100整数'));
+					} else {
+				callback();
+						
+					}
+			}else if(rule.field == 'minimumOpeningOfRefillValve'){//补水阀最小开度
+				let mUserId = /^(?:0|[1-9][0-9]?|100)$/;
+					if (value && !value.match(mUserId)) {
+						return callback(new Error('0-100整数'));
+					} else {
+				callback();
+						
+					}
+			}else if(rule.field == 'cleanedCoalAshLower'){//精煤灰分下限
+				let mUserId = /^[7-9]\.[0-9]{1,3}$|^[7-9]{1}$|^10{1}$|^10\.[0-9]{1,3}$|^11{1}$|^11\.[0]{1,3}$/;
+					if (value && !value.match(mUserId)) {
+						return callback(new Error('7-11小数3'));
+					} else {
+				callback();
+						
+					}
+			}else if(rule.field == 'regulationCoefficientOfShuntValve'){//分流阀调节系数
+				let mUserId = /^(?:0|[1-9][0-9]?|100)$/;
+					if (value && !value.match(mUserId)) {
+						return callback(new Error('0-100整数'));
+					} else {
+				callback();
+						
+					}
+			}else if(rule.field == 'cleanedCoalAshUpper'){//精煤灰分上限
+				let mUserId = /^[7-9]\.[0-9]{1,3}$|^[7-9]{1}$|^10{1}$|^10\.[0-9]{1,3}$|^11{1}$|^11\.[0]{1,3}$/;
+					if (value && !value.match(mUserId)) {
+						return callback(new Error('7-11小数3'));
+					} else {
+				callback();
+						
+					}
+			}else if(rule.field == 'adjustmentCoefficientOfWaterLevelOfRefillValve'){//补水阀液位调整系数
+				let mUserId = /^(?:0|[1-9][0-9]?|100)$/;
+					if (value && !value.match(mUserId)) {
+						return callback(new Error('0-100整数'));
+					} else {
+				callback();
+						
+					}
+			}else if(rule.field == 'diversionValveDensityAdjustmentCoefficient'){//分流阀密度调整系数
+				let mUserId = /^(?:0|[1-9][0-9]?|100)$/;
+					if (value && !value.match(mUserId)) {
+						return callback(new Error('0-100整数'));
+					} else {
+				callback();
+						
+					}
+			}else if(rule.field == 'supAdviseLoopCnt'){//补水阀密度调节周期
+				let mUserId = /^\+?[0-9]\d*$/;
+					if (value && !value.match(mUserId)) {
+						return callback(new Error('正整数'));
+					} else {
+				callback();
+						
+					}
+			}else if(rule.field == 'adjustmentCoefficientOfFillingValve'){//补水阀密度调节系数
+				let mUserId = /^(?:0|[1-9][0-9]?|100)$/;
+					if (value && !value.match(mUserId)) {
+						return callback(new Error('0-100整数'));
+					} else {
+				callback();
+						
+					}
+			}else if(rule.field == 'upperProductionDensity'){//生产密度上限
+				let mUserId = /^[1-9]{1,2}$|^[1-9]{1,2}[\.]{1}[0-9]{1,2}$/;
+					if (value && !value.match(mUserId)) {
+						return callback(new Error('大于1小数2'));
+					} else {
+				callback();
+						
+					}
+			}else if(rule.field == 'lowerProductionDensity'){//生产密度下限
+				let mUserId = /^[1-9]{1,2}$|^[1-9]{1,2}[\.]{1}[0-9]{1,2}$/;
+					if (value && !value.match(mUserId)) {
+						return callback(new Error('大于1小数2'));
+					} else {
+				callback();
+						
+					}
+			}else if(rule.field == 'mediumBarrelHigh'){//合介桶高度/////第二个
+				let mUserId = /^\d+(\.(?!.*0$)\d{1,2})?$/;
+					if (value && !value.match(mUserId)) {
+						return callback(new Error('整数小数2'));
+					}else{
+						callback();
+					}
+			}else if(rule.field == 'ashCalInterval'){//灰分元计算间隔
+				let mUserId = /^\+?[1-9]\d*$/;
+					if (value && !value.match(mUserId)) {
+						return callback(new Error('大于1整数'));
+					}else{
+						callback();
+					}
+			}else if(rule.field == 'machineCycle'){//计算周期
+				let mUserId = /^(?:[0-2]?\d{1,3}|3000)$/;
+					if (value && !value.match(mUserId)) {
+						return callback(new Error('0-3000整数'));
+					}else{
+						callback();
+					}
+			}else if(rule.field == 'superHighLevel'){//合介桶超高液位
+				let mUserId = /^(?:0|[1-9][0-9]?|100)$/;
+					if (value && !value.match(mUserId)) {
+						return callback(new Error('0-100整数'));
+					} else {
+				callback();
+						
+					}
+			}else if(rule.field == 'lowLevel'){//合介桶低液位
+				let mUserId = /^(?:0|[1-9][0-9]?|100)$/;
+					if (value && !value.match(mUserId)) {
+						return callback(new Error('0-100整数'));
+					} else {
+				callback();
+						
+					}
+			}else if(rule.field == 'superLowLevel'){//合介桶超低液位
+				let mUserId = /^(?:0|[1-9][0-9]?|100)$/;
+					if (value && !value.match(mUserId)) {
+						return callback(new Error('0-100整数'));
+					} else {
+				callback();
+						
+					}
+			}else if(rule.field == 'peatQuantityRegulationCoefficient'){//泥煤量调节系数
+				let mUserId = /^(?:0|[1-9][0-9]?|100)$/;
+					if (value && !value.match(mUserId)) {
+						return callback(new Error('0-100整数'));
+					} else {
+				callback();
+						
+					}
+			}else if(rule.field == 'densityError'){//密度误差值
+				let mUserId = /^0\.[0-9]{1,3}$|^1{1}$|^1\.[0]{1,3}$/;
+					if (value && !value.match(mUserId)) {
+						return callback(new Error('0-1小数3'));
+					} else {
+				callback();
+						
+					}
+			}else if(rule.field == 'highLevel'){//合介桶高液位
+				let mUserId = /^(?:0|[1-9][0-9]?|100)$/;
+					if (value && !value.match(mUserId)) {
+						return callback(new Error('0-100整数'));
+					} else {
+				callback();
+						
+					}
+			}else if(rule.field == 'slurryDensity'){//煤泥密度
+				let mUserId = /^1\.[0-9]{1,3}$|^1{1}$|^2{1}$|^2\.[0]{1,3}$/;
+					if (value && !value.match(mUserId)) {
+						return callback(new Error('1-2小数3'));
+					} else {
+				callback();
+						
+					}
+			}else if(rule.field == 'supStepComValue'){//补水阀大小步判断值
+				let mUserId = /^0\.[0-9]{1,3}$|^0{1}$|^1{1}$|^1\.[0]{1,3}$/;
+					if (value && !value.match(mUserId)) {
+						return callback(new Error('0-1小数3'));
+					} else {
+				callback();
+						
+					}
+			}else if(rule.field == 'densityObservationPeriod'){//密度观察周期
+				let mUserId = /^\+?[0-9]\d*$/;
+					if (value && !value.match(mUserId)) {
+						return callback(new Error('正整数'));
+					} else {
+				callback();
+						
+					}
+			}else if(rule.field == 'magnetitePowderDensity'){//磁铁矿粉密度
+				let mUserId = /^[1-9]\.[0-9]{1,3}$|^[1-9]{1}$|^10{1}$|^10\.[0]{1,3}$/;
+					if (value && !value.match(mUserId)) {
+						return callback(new Error('1-10小数3'));
+					} else {
+				callback();
+						
+					}
+			}else if(rule.field == 'peatLevelSetHigh'){//泥煤量设定高位
+				let mUserId = /^(?:0|[1-9][0-9]?|100)$/;
+					if (value && !value.match(mUserId)) {
+						return callback(new Error('0-100整数'));
+					} else {
+				callback();
+						
+					}
+			}else if(rule.field == 'peatLevelSetSuperLow'){//泥煤量设定超低位
+				let mUserId = /^(?:0|[1-9][0-9]?|100)$/;
+					if (value && !value.match(mUserId)) {
+						return callback(new Error('0-100整数'));
+					} else {
+				callback();
+						
+					}
+			}else if(rule.field == 'peatLevelSetLow'){//泥煤量设定低位
+				let mUserId = /^(?:0|[1-9][0-9]?|100)$/;
+					if (value && !value.match(mUserId)) {
+						return callback(new Error('0-100整数'));
+					} else {
+				callback();
+						
+					}
+			}else if(rule.field == 'peatLevelSetSuperHigh'){//泥煤量设定超高位
+				let mUserId = /^(?:0|[1-9][0-9]?|100)$/;
+					if (value && !value.match(mUserId)) {
+						return callback(new Error('0-100整数'));
+					} else {
+				callback();
+						
+					}
+			}else if(rule.field == 'ashUpper'){//灰分边界上限///第三个
+				let mUserId = /^[1-9]{1,2}$|^[1-9]{1,2}[\.]{1}[0-9]{1,2}$/;
+					if (value && !value.match(mUserId)) {
+						return callback(new Error('大于1小数2'));
+					} else {
+				callback();
+						
+					}
+			}else if(rule.field == 'ashLower'){//灰分边界下限
+				let mUserId = /^[1-9]{1,2}$|^[1-9]{1,2}[\.]{1}[0-9]{1,2}$/;
+					if (value && !value.match(mUserId)) {
+						return callback(new Error('大于1小数2'));
+					} else {
+				callback();
+						
+					}
+			}else if(rule.field == 'blockStatus'){//滑动模块状态
+			
+			let mUserId = /^(?:0|[1]?|1)$/ ;
+				if (value && !value.match(mUserId)) {
+					return callback(new Error('0或1'));
+				}else{
+					callback();
+				}
+				
+			}else if(rule.field == 'ashContentExceedsBid'){//灰分超标时间
+				let mUserId = /^\+?[1-9]\d*$/;
+					if (value && !value.match(mUserId)) {
+						return callback(new Error('大于1整数'));
+					}else{
+						callback();
+					}
+			}else if(rule.field == 'productionPhase'){//生产周期
+				let mUserId = /^\d+(\.(?!.*0$)\d{1,2})?$/;
+					if (value && !value.match(mUserId)) {
+						return callback(new Error('整数小数2'));
+					}else{
+						callback();
+					}
+			}else if(rule.field == 'dertaRou'){//Δρ
+				let mUserId = /^\d+(\.(?!.*0$)\d{1,2})?$/;
+					if (value && !value.match(mUserId)) {
+						return callback(new Error('整数小数2'));
+					}else{
+						callback();
+					}
+			}else if(rule.field == 'safetyDensityTime'){//安全密度等待时间
+				let mUserId = /^\+?[1-9]\d*$/;
+					if (value && !value.match(mUserId)) {
+						return callback(new Error('大于1整数'));
+					}else{
+						callback();
+					}
+			}else if(rule.field == 'effectiveAshTime'){//烧灰生效时间
+				let mUserId = /^\+?[1-9]\d*$/;
+					if (value && !value.match(mUserId)) {
+						return callback(new Error('大于1整数'));
+					}else{
+						callback();
+					}
+			}else if(rule.field == 'stepAdjustFactor'){//步长调整系数
+				let mUserId = /^0\.[0-9]{1,3}$|^0{1}$|^1{1}$|^1\.[0]{1,3}$/;
+					if (value && !value.match(mUserId)) {
+						return callback(new Error('0-1小数3'));
+					} else {
+				callback();
+						
+					}
+			}else if(rule.field == 'safetyDensity'){//安全密度
+				let mUserId = /^[1-9]{1,2}$|^[1-9]{1,2}[\.]{1}[0-9]{1,2}$/;
+					if (value && !value.match(mUserId)) {
+						return callback(new Error('大于1小数2'));
+					} else {
+				callback();
+						
+					}
+			}else if(rule.field == 'densityCycle'){//密度调节灰分计算周期
+				let mUserId = /^\d+(\.(?!.*0$)\d{1,2})?$/;
+					if (value && !value.match(mUserId)) {
+						return callback(new Error('整数小数2'));
+					}else{
+						callback();
+					}
+			}else if(rule.field == 'densityStartCycle'){//密度调节启动计算周期
+				let mUserId = /^\d+(\.(?!.*0$)\d{1,2})?$/;
+					if (value && !value.match(mUserId)) {
+						return callback(new Error('整数小数2'));
+					}else{
+						callback();
+					}
+			}else if(rule.field == 'EffectivelyTime'){//填报灰分有效时长
+				let mUserId = /^\+?[1-9]\d*$/;
+					if (value && !value.match(mUserId)) {
+						return callback(new Error('大于1整数'));
+					}else{
+						callback();
+					}
+			}else{
+				callback();
+			} 
+			
 		}
 	}
 };
