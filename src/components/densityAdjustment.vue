@@ -127,13 +127,24 @@ export default {
 	},
 	mounted() {
 		var that = this;
-		setInterval(that.densityAdjustment, 1000 * 30);
+		that.densityTime()
+		// setInterval(that.densityAdjustment, 1000 * 30);
 			util.$on('gain', () => {			
 				that.densityAdjustment();
 			});
 	},
+	beforeDestroy() {
+		//页面关闭时清除定时器
+		clearInterval(this.densitySet);
+	},
 	methods: {
-		
+		densityTime() {
+			//设置定时器
+		 
+			this.densitySet = setInterval(() => {
+				this.densityAdjustment();
+			}, 1000*30);
+		},
 		seek(){
 		    this.postData.page = 1
 			this.pageOptions.current=1

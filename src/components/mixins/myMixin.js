@@ -11,14 +11,32 @@ export const myMixin = {
 			}
 		},
 		mounted() {
-			setInterval(() => {
-				this.shuntRight()
-				this.moisturizingRight()
-				this.densityRight()
-				this.ashRight()
-			}, 1000);
+			// setInterval(() => {
+			// 	this.shuntRight()
+			// 	this.moisturizingRight()
+			// 	this.densityRight()
+			// 	this.ashRight()
+			// }, 1000);
+			this.myMixinTime()
+		},
+		beforeDestroy() {
+			//页面关闭时清除定时器
+			clearInterval(this.myMixinSet);
 		},
 		methods: {
+			
+			myMixinTime() {
+				//设置定时器
+			 
+				this.myMixinSet = setInterval(() => {
+					this.shuntRight()
+					this.moisturizingRight()
+					this.densityRight()
+					this.ashRight()
+				}, 1000);
+			},
+			
+			
 			ashRight() { //灰分
 				let url = this.$api.ashRight;
 				this.$http

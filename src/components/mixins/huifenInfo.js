@@ -9,6 +9,11 @@ export const huifenInfo = {
 		this.huifenTime(); //页面开始计时器
 	this.getHuifenInfo()
 	},
+	beforeDestroy() {
+		//页面关闭时清除定时器
+		clearInterval(this.stopTimeSet);
+	},
+	
 		methods: {
 			
 			huifenTime() {

@@ -91,18 +91,32 @@ export default {
 		this.valveEcharts();
 	},
 	mounted() {
-		setInterval(() => {
-			this.ashEcharts();
-			this.densityEcharts();
-			this.valveEcharts();
-		}, 1000 * 60);
+this.MKTime()
 		
+	},
+	beforeDestroy() {
+		//页面关闭时清除定时器
+		clearInterval(this.MKSet);
 	},
 	computed: {
 		...mapGetters(['getAshData', 'getDensityData', 'getValveData'])
 	},
 
 	methods: {
+		MKTime() {
+			//设置定时器
+		 
+			this.MKSet = setInterval(() => {
+				
+		this.ashEcharts();
+		this.densityEcharts();
+		this.valveEcharts();
+				
+			}, 1000*60);
+		},
+		
+		
+		
 		escWay(value){//变量转义
 			return this[value]
 		},

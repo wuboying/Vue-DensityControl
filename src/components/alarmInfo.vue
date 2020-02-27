@@ -165,11 +165,25 @@ export default {
 		this.alarmPullDown()
 	},
 	mounted() {
-		    setInterval(this.homeAlarmInfo, 5000);
+		this.homeAlarmTime()
+		    // setInterval(this.homeAlarmInfo, 5000);
 	
 	},
-	methods:{
+	beforeDestroy() {
+		//页面关闭时清除定时器
+		clearInterval(this.homeAlarmSet);
+	},
 	
+	
+	
+	methods:{
+	homeAlarmTime() {
+		//设置定时器
+	 
+		this.homeAlarmSet = setInterval(() => {
+			this.homeAlarmInfo();
+		}, 5000);
+	},
 		
 		homeAlarmInfo(){
 			let url = this.$api.homePageAlarmInfo;

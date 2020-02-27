@@ -164,17 +164,35 @@ export default {
 	},
 	mounted() {
 		// setInterval(this.getPattern, 1000);
-		setInterval(() => {
-			this.getCurrentStatus();
-			this.getStatusData();
-			this.getSection();
-			if (this.identification == 4) {
-				this.getPattern();
-			}
-		}, 1000);
+		// setInterval(() => {
+		// 	this.getCurrentStatus();
+		// 	this.getStatusData();
+		// 	this.getSection();
+		// 	if (this.identification == 4) {
+		// 		this.getPattern();
+		// 	}
+		// }, 1000);
+		this.deviecStateTime()
+	},
+	beforeDestroy() {
+		//页面关闭时清除定时器
+		clearInterval(this.deviecStateSet);
 	},
 	methods: {
-		
+		deviecStateTime() {
+			//设置定时器
+		 
+			this.deviecStateSet = setInterval(() => {
+				
+				this.getCurrentStatus();
+				this.getStatusData();
+				this.getSection();
+				if (this.identification == 4) {
+					this.getPattern();
+				}
+				
+			}, 1000);
+		},
 		getSection() {
 			//获取设定密度区间
 			let url = this.$api.sectionValue;

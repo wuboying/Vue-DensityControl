@@ -9,6 +9,11 @@ export const errorInfo = {
 		this.setTime(); //页面开始计时器
 	this.getErrorInfo()
 	},
+	beforeDestroy() {
+		//页面关闭时清除定时器
+		clearInterval(this.clearTimeSet);
+	},
+	
 		methods: {
 			
 			setTime() {
