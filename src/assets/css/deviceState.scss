@@ -27,7 +27,7 @@
 	}
 }
 .min {
-	padding: 0 24px;
+	padding: 0 0 0 24px;
 	height: 526px;
 	border-radius: 4px;
 	background: rgba(255, 255, 255, 1);
@@ -35,11 +35,13 @@
 	.equipment-details{
 		height: 461px;
 		.btn-tb{
+				float: left;
 			background: #2c9ae6;
 			color: #ffffff ;
 			line-height: 32px;
 		}
 		.sliding-btn{
+			float: left;
 			border: 1px solid #EFF2F5 ;
 			border-radius: 5px;
 			height: 32px;

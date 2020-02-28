@@ -5,12 +5,11 @@
 		padding: 10px 5px;
 	}
 }
-// #fourFrom {
-// 	.ant-form-item {
-// 		margin-bottom: 15px;
-// 		font-size: 12px;
-// 	}
-// }
+#fourFrom {
+.ant-form-item-label{
+	text-align: left;
+}
+}
 // #allFrom{
 // /deep/.ant-form-item-with-help {
 //      margin-bottom: 0; 
@@ -32,6 +31,10 @@
 }
 
 #stateFrom {
+	
+	.ant-form-item-label{
+		text-align: left;
+	}
 	.ant-form-item-label label{
 		color:rgba(140,152,158,1);
 		font-size:14px;
@@ -45,11 +48,11 @@
 	.ant-form-item-children {
 		.ant-input{
 			color:rgba(50,50,50,1);
-			font-weight: 600;
+			font-weight: bold;
 		}
 		span {
 			float: left;
-			width: 40px;
+			width: 41px;
 			display: inline-block;
 			font-weight: 600;
 			height: 32px;
@@ -63,6 +66,10 @@
 			
 			padding: 0 2px;
 			width: auto ;
+		}
+		.span-color{
+			color:rgba(50,50,50,1);
+			font-weight: bold;
 		}
 	}
 	.ant-form-item-label{
@@ -94,6 +101,16 @@ form .ant-select, form .ant-cascader-picker{
 
 }
 .set-form{
+	.ant-form-item{
+	height: 32px;	
+	}
+	.ant-form-item-label{
+		
+		line-height: 32px;
+	}
+	.ant-form-item-control{
+		line-height: 32px;
+	}
 	.ant-modal-footer{
 		text-align: center;
 		border: none;

@@ -11,9 +11,9 @@
 			<div class="titleBar"><span>设备状态</span></div>
 			<div class="equipment-details">
 				<a-form id="stateFrom" :form="form" layout="horizontal">
-					<a-form-item :required="false" :label-col="{ span: 8 }" :wrapper-col="{ span: 12 }" label="设定密度">
+					<a-form-item :required="false" :label-col="{ span: 9 }" :wrapper-col="{ span: 15 }" label="设定密度">
 						<a-input
-							style="width: 85px; float: left;"
+							style="width: 80px; float: left;"
 							@pressEnter="carriageReturn(12, equipmentData.setDensity, equipmentData.setDensity,'midu')"
 							:disabled="identification == 3 ? false : true"
 							:class="[identification != 3 ? 'ipt-active' : '']"
@@ -22,29 +22,29 @@
 						/>
 						<span>g/cm³</span>
 					</a-form-item>
-					<a-form-item :required="false" :label-col="{ span: 8 }" :wrapper-col="{ span: 16 }" label=" 分流阀开度">
-						<span>{{ equipmentData.spliteFlowUp }}</span>
+					<a-form-item :required="false" :label-col="{ span: 9 }" :wrapper-col="{ span: 15 }" label=" 分流阀开度">
+						<span class="span-color">{{ equipmentData.spliteFlowUp }}</span>
 						<span class="span">%</span>
 						<span v-if="identification != 1" class="span">→</span>
 						<a-input
 							v-if="identification != 1"
 							:disabled="identification == 2 ? false : true"
 							@pressEnter="carriageReturn(56, equipmentData.spliteFlowUp, equipmentData.spliteFlowDown,'fenliufa')"
-							style="width: 85px; float: left;"
+							style="width: 80px; float: left;"
 							type="text"
 							:class="[identification != 2 ? 'ipt-active' : '']"
 							v-decorator="['fenliufa', { initialValue: equipmentData.spliteFlowDown, rules: [{ required: true, message: '请输入分流阀开度' }, { validator: openingDegree }] }]"
 						/>
 						<span v-if="identification != 1">%</span>
 					</a-form-item>
-					<a-form-item :required="false" :label-col="{ span: 8 }" :wrapper-col="{ span: 16 }" label=" 补水阀开度">
-						<span>{{ equipmentData.makeUpUp }}</span>
+					<a-form-item :required="false" :label-col="{ span: 9 }" :wrapper-col="{ span: 15 }" label=" 补水阀开度">
+						<span class="span-color">{{ equipmentData.makeUpUp }}</span>
 						<span class="span">%</span>
 						<span class="span" v-if="identification != 1">→</span>
 						<a-input
 							v-if="identification != 1"
 							:disabled="identification == 2 ? false : true"
-							style="width: 85px; float: left;"
+							style="width: 80px; float: left;"
 							@pressEnter="carriageReturn(45, equipmentData.makeUpUp, equipmentData.makeUpDown,'bushuifa')"
 							type="text"
 							:class="[identification != 2 ? 'ipt-active' : '']"
@@ -52,33 +52,33 @@
 						/>
 						<span v-if="identification != 1">%</span>
 					</a-form-item>
-					<a-form-item :required="false" :label-col="{ span: 8 }" :wrapper-col="{ span: 16 }" label=" 补水阀流量">
-						<span>{{ equipmentData.flow }}</span>
+					<a-form-item :required="false" :label-col="{ span: 9 }" :wrapper-col="{ span: 15 }" label=" 补水阀流量">
+						<span class="span-color">{{ equipmentData.flow }}</span>
 						<span>m³/L</span>
 					</a-form-item>
-					<a-form-item :required="false" :label-col="{ span: 8 }" :wrapper-col="{ span: 16 }" label=" 磁性物含量">
-						<span>{{ equipmentData.magneticMateria }}</span>
+					<a-form-item :required="false" :label-col="{ span: 9 }" :wrapper-col="{ span: 15 }" label=" 磁性物含量">
+						<span class="span-color">{{ equipmentData.magneticMateria }}</span>
 						<span>g/L</span>
 					</a-form-item>
-					<a-form-item :required="false" :label-col="{ span: 8 }" :wrapper-col="{ span: 16 }" label=" 煤泥含量">
-						<span>{{ equipmentData.coalBlending }}</span>
+					<a-form-item :required="false" :label-col="{ span: 9 }" :wrapper-col="{ span: 15 }" label=" 煤泥含量">
+						<span  class="span-color">{{ equipmentData.coalBlending }}</span>
 						<span>%</span>
 					</a-form-item>
-					<a-form-item :required="false" :label-col="{ span: 8 }" :wrapper-col="{ span: 16 }" label=" 合介桶液位">
-						<span>{{ equipmentData.liquidLevelUp }}</span>
-						<span class="span">M</span>
-						<span class="span" style="margin-right: 6px;">/</span>
-						<span>{{ equipmentData.liquidLevelDown }}</span>
+					<a-form-item :required="false" :label-col="{ span: 9 }" :wrapper-col="{ span: 15 }" label=" 合介桶液位">
+						<span  class="span-color">{{ equipmentData.liquidLevelUp }}</span>
+						<span>M/</span>
+						<!-- <span class="span" style="margin-right: 6px;"></span> -->
+						<span  class="span-color">{{ equipmentData.liquidLevelDown }}</span>
 						<span>%</span>
 					</a-form-item>
-					<a-form-item :required="false" :label-col="{ span: 8 }" :wrapper-col="{ span: 16 }" label=" 重介旋流器压力">
-						<span>{{ equipmentData.theHeavy }}</span>
+					<a-form-item :required="false" :label-col="{ span: 9 }" :wrapper-col="{ span: 15 }" label=" 重介旋流器压力">
+						<span  class="span-color">{{ equipmentData.theHeavy }}</span>
 						<span>kPa</span>
 					</a-form-item>
-					<a-form-item :required="false" :label-col="{ span: 8 }" :wrapper-col="{ span: 6 }" label="  化验灰分填报">
+					<a-form-item :required="false" :label-col="{ span: 9 }" :wrapper-col="{ span: 15 }" label="  化验灰分填报">
 						<a-button @click="onClickOpen" type="primary" class="btn-tb">填报</a-button>
 					</a-form-item>
-					<a-form-item v-if="identification == 4" :required="false" :label-col="{ span: 8 }" :wrapper-col="{ span: 12 }" label="  密控模式">
+					<a-form-item v-if="identification == 4" :required="false" :label-col="{ span: 9 }" :wrapper-col="{ span: 15 }" label="  密控模式">
 						<a-button v-for="el in blickBtn" :key="el.id" :class="['sliding-btn', btnID == el.id ? 'btn-active' : '']" @click="setPattern(el.id)">
 							{{ el.name }}
 						</a-button>

@@ -64,8 +64,8 @@ export const myMixin = {
 							if (response.set_Density == -100) {
 								response.set_Density = "未检测"
 								}
-						this.setRightData = response.current_Density //设定
-						this.atRightData = response.set_Density //当前
+						this.setRightData = response.current_Density.toFixed(3) //设定
+						this.atRightData = response.set_Density.toFixed(3) //当前
 					})
 					.catch(error => {});
 			},
